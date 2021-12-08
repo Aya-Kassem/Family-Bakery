@@ -12,12 +12,18 @@ function counting(el,from,to){
         countTo: to
     })
 }
-if(bodyElement.getAttribute('id') == 'about'){
-
-    counting("#counter-one", 0, 1430);
-    counting("#counter-two", 0, 64);
-    counting("#counter-three", 0, 960);
-    counting("#counter-four", 0, 420);
+if(bodyElement.getAttribute('id') == 'about'){ 
+    let sectionLocation = $('.our-info').offset().top;
+    $(window).scroll( ()=>{
+        let WindowScroll = $(this).scrollTop();
+        if(WindowScroll >= sectionLocation - 500){
+            counting("#counter-one", 0, 1430);
+            counting("#counter-two", 0, 64);
+            counting("#counter-three", 0, 960);
+            counting("#counter-four", 0, 420);
+        }
+    } )
+    
 }
 
 // BACK TO TOP........
@@ -29,7 +35,22 @@ function BackToTop(){
         }else{
             document.querySelector('.back-btn').classList.remove('d-flex');
         }
+    });
+
+    document.querySelector('.back-btn').addEventListener('click', function(e){
+        if(e.hash != ""){
+            e.preventDefault();
+            let hash = this.hash;
+            let Top = document.querySelector(hash).offsetTop;
+            let Left = document.querySelector(hash).offsetLeft;
+            window.scrollTo({
+                top: Top,
+                left: Left,
+                behavior: "smooth"
+            });
+        }
     })
+
 }
 // NAVBAR ON SCROLL ..........
 function navbarOnScroll(){
@@ -107,17 +128,8 @@ if(bodyElement.getAttribute('id') == 'homePage'){
 }
 
 
-document.querySelector('.back-btn').addEventListener('click', function(e){
-    if(e.hash != ""){
-        e.preventDefault();
-        let hash = this.hash;
-        let Top = document.querySelector(hash).offsetTop;
-        let Left = document.querySelector(hash).offsetLeft;
-        window.scrollTo({
-            top: Top,
-            left: Left,
-            behavior: "smooth"
-        });
-    }
-})
+
+
+
+
 
